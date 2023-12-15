@@ -13,6 +13,7 @@ public class spawnmanager : MonoBehaviour
     void Start()
     {
         //SpawnRandomEnemy();
+        StartCoroutine(SpawnRandomNumber());
         SpawnCoin();
     }
 
@@ -24,7 +25,7 @@ public class spawnmanager : MonoBehaviour
 
     void SpawnRandomEnemy()
     {
-        Instantiate(Enemy, new Vector3(0, 1, 5), Enemy.transform.rotation);
+        Instantiate(Enemy, (CreateSpawnLocation()), Enemy.transform.rotation);
     }
 
     void SpawnCoin()
@@ -41,5 +42,22 @@ public class spawnmanager : MonoBehaviour
 
         return randomPosition;
 
+    }
+
+    IEnumerator SpawnRandomNumber()
+    {
+        while (true)
+        {
+        int randomSeconds = Random.Range(1, 8);
+        yield return new WaitForSeconds(randomSeconds);
+
+        int NumberofEnemy = Random.Range(1, 3);
+        for (int i = 0; i < NumberofEnemy; i++) 
+        {
+                SpawnRandomEnemy();
+
+            }
+        }
+       
     }
 }
